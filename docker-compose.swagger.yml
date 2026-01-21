@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  swagger-ui:
+    image: swaggerapi/swagger-ui:latest
+    container_name: codly-swagger-ui
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./backend/openapi.yaml:/usr/share/nginx/html/openapi.yaml:ro
+    environment:
+      - SWAGGER_JSON=/usr/share/nginx/html/openapi.yaml
+    networks:
+      - codly-network
+
+networks:
+  codly-network:
+    driver: bridge

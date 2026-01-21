@@ -1,0 +1,51 @@
+openapi: 3.0.3
+info:
+  title: Codly Backend API
+  description: API da plataforma Codly para testes de programação
+  version: 0.1.0
+  contact:
+    name: Codly Team
+
+servers:
+  - url: http://localhost:3000
+    description: Servidor de desenvolvimento
+  - url: http://localhost:3000/api
+    description: API base path
+
+paths:
+  /api/health:
+    get:
+      summary: Health check da API
+      description: Verifica se o servidor e o banco de dados estão funcionando
+      operationId: apiHealthCheck
+      tags:
+        - Health
+      responses:
+        '200':
+          description: Servidor e banco de dados estão funcionando
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "ok"
+                  service:
+                    type: string
+                    example: "codly-backend"
+                  database:
+                    type: string
+                    example: "connected"
+                required:
+                  - status
+                  - service
+                  - database
+              example:
+                status: "ok"
+                service: "codly-backend"
+                database: "connected"
+
+tags:
+  - name: Health
+    description: Endpoints de verificação de saúde do sistema

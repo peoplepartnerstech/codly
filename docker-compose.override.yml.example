@@ -1,0 +1,11 @@
+# Copy this file to docker-compose.override.yml to customize your local environment
+# This file is automatically ignored by git
+
+version: '3.8'
+
+services:
+  backend:
+    environment:
+      # Override environment variables here
+      RUST_LOG: trace
+      # JWT_SECRET: your-local-secret-key

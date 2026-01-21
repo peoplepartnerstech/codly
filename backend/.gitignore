@@ -1,0 +1,24 @@
+# Rust
+/target/
+**/*.rs.bk
+# Cargo.lock should be committed for applications (not libraries)
+# Uncomment the line below if you want to ignore it
+# Cargo.lock
+
+# Environment
+.env
+.env.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

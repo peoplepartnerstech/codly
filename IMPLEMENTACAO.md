@@ -1,28 +1,110 @@
 # Plano de Implementação - Codly
 
+## 📊 Status do Projeto
+
+**Última atualização:** Backend Setup completo, Docker configurado, OpenAPI documentado, scripts de desenvolvimento criados
+
+### ✅ Concluído
+
+#### Fase 1 - Backend Setup
+- ✅ Projeto Rust com Axum configurado e funcionando
+- ✅ Estrutura de pastas completa (controllers, routes, middleware, db, models)
+- ✅ Cargo.toml com todas as dependências necessárias (axum, tokio, sqlx, jwt, bcrypt, etc)
+- ✅ Sistema de configuração com variáveis de ambiente (dotenv)
+- ✅ Configuração de rustfmt e clippy
+- ✅ Conexão com PostgreSQL usando sqlx com pool de conexões
+- ✅ Async runtime Tokio configurado
+- ✅ Router Axum com rotas básicas e health check
+- ✅ Middleware completo: CORS, logging (tracing), error handling customizado
+- ✅ Sistema de tratamento de erros com AppError e Result<T>
+- ✅ Endpoint GET /api/health implementado (verifica servidor e banco de dados)
+- ✅ OpenAPI 3.0.3 documentado (backend/openapi.yaml)
+- ✅ Warnings de código não utilizado corrigidos (#[allow(dead_code)])
+- ✅ Versão do Rust atualizada para `latest` (suporta edition2024)
+
+#### Fase 1 - Docker Setup
+- ✅ Docker Compose configurado (produção e desenvolvimento)
+- ✅ Container PostgreSQL 15 com healthcheck
+- ✅ Container Backend Rust configurado
+- ✅ Dockerfile para produção (build otimizado)
+- ✅ Dockerfile.dev para desenvolvimento
+- ✅ Configuração Docker Compose completa
+- ✅ Rede Docker configurada entre containers
+- ✅ Volumes para persistência de dados e cache de build
+- ✅ Versão do Rust atualizada para `latest` (suporta edition2024)
+- ✅ Scripts de desenvolvimento (Makefile e make.bat para Windows)
+- ✅ Swagger UI configurado via Docker (docker-compose.swagger.yml)
+
+**Arquivos criados:**
+- `backend/src/main.rs` - Entry point da aplicação
+- `backend/src/config.rs` - Configurações da aplicação
+- `backend/src/db/mod.rs` - Pool de conexões PostgreSQL
+- `backend/src/error.rs` - Sistema de tratamento de erros
+- `backend/src/routes/` - Rotas da API (health check)
+- `backend/src/middleware/` - Middlewares (auth placeholder)
+- `backend/src/controllers/` - Controllers (estrutura preparada)
+- `backend/src/models/` - Models (estrutura preparada)
+- `backend/Dockerfile` e `backend/Dockerfile.dev`
+- `docker-compose.yml` e `docker-compose.dev.yml`
+- `docker-compose.swagger.yml` - Swagger UI para visualizar OpenAPI
+- `Makefile` - Comandos para Linux/Mac
+- `make.bat` - Comandos para Windows
+- `backend/openapi.yaml` - Especificação OpenAPI 3.0.3
+- `backend/rustfmt.toml` e `backend/.clippy.toml` - Configurações de formatação
+- `backend/.gitignore` - Arquivos ignorados pelo Git
+- `backend/env.example` - Exemplo de variáveis de ambiente
+- `README.md` - Documentação principal do projeto
+
+### 🚧 Em Andamento
+- Nenhum no momento
+
+### 📋 Próximos Passos
+- Fase 1 - Banco de Dados: Criar migrations e schema inicial
+- Fase 1 - Autenticação: Implementar JWT para empresas
+- Fase 1 - Setup Inicial: Criar empresa admin e seed inicial
+
+### 📝 Documentação Criada
+- ✅ README.md - Documentação principal com instruções de uso
+- ✅ backend/openapi.yaml - Especificação OpenAPI 3.0.3
+- ✅ Makefile e make.bat - Scripts de desenvolvimento
+- ✅ Configurações de formatação (rustfmt.toml, .clippy.toml)
+
+### 📚 OpenAPI / Documentação da API
+- ✅ Especificação OpenAPI 3.0.3 criada (backend/openapi.yaml)
+- ✅ Endpoint GET /api/health documentado com:
+  - Schema de resposta completo
+  - Exemplos de resposta
+  - Descrição detalhada
+- ✅ Swagger UI configurado via Docker (docker-compose.swagger.yml)
+- ✅ Comandos para visualizar: `make.bat swagger` ou `make swagger`
+- ✅ Acessível em http://localhost:8080 quando Swagger UI estiver rodando
+- ✅ Arquivo OpenAPI pode ser importado em Postman, Insomnia, Swagger Editor, etc.
+
+---
+
 ## Fase 1: Setup Inicial e Infraestrutura
 
 ### Backend Setup
-- [ ] Configurar projeto Rust com Axum como framework web
-- [ ] Configurar estrutura de pastas (handlers, routes, middleware, db, models)
-- [ ] Configurar Cargo.toml com dependências:
-  - [ ] axum (framework web)
-  - [ ] tokio (async runtime)
-  - [ ] tower (middleware e serviços)
-  - [ ] tower-http (middleware HTTP)
-  - [ ] serde (serialização/deserialização)
-  - [ ] sqlx ou diesel (ORM/query builder)
-  - [ ] jsonwebtoken (JWT)
-  - [ ] bcrypt (hash de senhas)
-  - [ ] dotenv (variáveis de ambiente)
-  - [ ] uuid (geração de tokens)
-- [ ] Configurar variáveis de ambiente (.env com dotenv)
-- [ ] Configurar rustfmt e clippy (formatação e linting)
-- [ ] Configurar scripts de build e desenvolvimento
-- [ ] Configurar conexão com PostgreSQL (sqlx ou diesel)
-- [ ] Configurar async runtime (tokio)
-- [ ] Configurar router do Axum
-- [ ] Configurar middleware (CORS, logging, error handling)
+- [x] Configurar projeto Rust com Axum como framework web
+- [x] Configurar estrutura de pastas (handlers, routes, middleware, db, models)
+- [x] Configurar Cargo.toml com dependências:
+  - [x] axum (framework web)
+  - [x] tokio (async runtime)
+  - [x] tower (middleware e serviços)
+  - [x] tower-http (middleware HTTP)
+  - [x] serde (serialização/deserialização)
+  - [x] sqlx ou diesel (ORM/query builder) - usando sqlx
+  - [x] jsonwebtoken (JWT)
+  - [x] bcrypt (hash de senhas)
+  - [x] dotenv (variáveis de ambiente)
+  - [x] uuid (geração de tokens)
+- [x] Configurar variáveis de ambiente (.env com dotenv)
+- [x] Configurar rustfmt e clippy (formatação e linting)
+- [x] Configurar scripts de build e desenvolvimento (Makefile + scripts Docker)
+- [x] Configurar conexão com PostgreSQL (sqlx ou diesel) - usando sqlx
+- [x] Configurar async runtime (tokio)
+- [x] Configurar router do Axum
+- [x] Configurar middleware (CORS, logging, error handling)
 
 ### Banco de Dados
 - [ ] Instalar e configurar PostgreSQL
@@ -70,14 +152,21 @@
 - [ ] **Criar índice em test_templates.expires_at para queries de templates expirados**
 - [ ] **Criar índice em test_instance_states.test_instance_id para carregar estado rapidamente**
 - [ ] **Criar índice em test_instances.status para filtros e queries por status**
-- [ ] Configurar conexão com pool de conexões
+- [x] Configurar conexão com pool de conexões
 
 ### Docker Setup
-- [ ] Configurar docker-compose.yml
-- [ ] Container PostgreSQL
-- [ ] Containers para execução de código (Python, Java)
-- [ ] Configurar rede entre containers
-- [ ] Testar comunicação entre serviços
+- [x] Configurar docker-compose.yml
+- [x] Container PostgreSQL
+- [ ] Containers para execução de código (Python, Java) - será feito na Fase 3
+- [x] Configurar rede entre containers
+- [x] Testar comunicação entre serviços
+- [x] Configurar Dockerfile para produção
+- [x] Configurar Dockerfile.dev para desenvolvimento
+- [x] Configurar Docker Compose para desenvolvimento e produção
+- [x] Configurar volumes para persistência de dados e cache de build
+- [x] Atualizar versão do Rust para `latest` (suporta edition2024)
+- [x] Criar scripts de desenvolvimento (Makefile e make.bat)
+- [x] Configurar Swagger UI via Docker (docker-compose.swagger.yml)
 
 ### Autenticação
 - [ ] Implementar registro de usuários (apenas empresas)
@@ -594,9 +683,10 @@
 - [ ] Testar execução de código em diferentes cenários
 
 ### Documentação
-- [ ] Documentar APIs (Swagger/OpenAPI)
-- [ ] Criar README completo
-- [ ] Documentar setup e deploy
+- [x] Documentar APIs (Swagger/OpenAPI) - OpenAPI 3.0.3 criado (backend/openapi.yaml)
+- [x] Criar README completo - README.md com instruções de uso
+- [x] Documentar setup e deploy - Instruções Docker no README
+- [x] Swagger UI configurado - docker-compose.swagger.yml para visualizar OpenAPI
 - [ ] Criar guia de contribuição
 
 ### Deploy

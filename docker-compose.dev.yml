@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: codly-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: codly
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - codly-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    container_name: codly-backend
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/codly
+      SERVER_ADDRESS: 0.0.0.0:3000
+      JWT_SECRET: ${JWT_SECRET:-change-this-secret-key-in-production-min-32-chars}
+      JWT_EXPIRATION_HOURS: ${JWT_EXPIRATION_HOURS:-24}
+      RUST_LOG: ${RUST_LOG:-debug}
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/app
+      - backend-target:/app/target
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - codly-network
+    command: cargo run
+
+volumes:
+  postgres_data:
+  backend-target:
+
+networks:
+  codly-network:
+    driver: bridge
