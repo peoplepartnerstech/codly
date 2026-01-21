@@ -1,0 +1,16 @@
+target/
+**/*.rs.bk
+Cargo.lock
+.env
+.env.local
+.git/
+.gitignore
+*.log
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+README.md
